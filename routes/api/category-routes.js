@@ -15,6 +15,14 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new category
+  Category.create(req.body)
+    .then((product) => {
+      res.json(200).json(product)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(400).json(err)
+    })
 });
 
 router.put('/:id', (req, res) => {
