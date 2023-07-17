@@ -16,7 +16,7 @@ An example of how a eCommerce backend could work
 
 
 ## License
-
+MIT
 
 ## Tests
 
