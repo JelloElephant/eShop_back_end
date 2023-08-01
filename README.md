@@ -3,6 +3,8 @@
 ## Description
 An emaple shop backend to allow for eCommerce
 
+[click here](https://www.youtube.com/watch?v=yquy1DtH0qU) for a video demonstration!
+
 
 ## Installation
 npm install for dependancies
