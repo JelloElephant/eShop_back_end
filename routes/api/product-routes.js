@@ -8,21 +8,23 @@ router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try {
-    const ans = Product.findAll({
+    Product.findAll({
     include: [{ model: Category }, { model: Tag}]
+  }).then((products) => {
+    res.status(200).json(products)
+    res.json(products)
   })
-  res.status(200).json(ans)
 } catch (err) {
   res.status(500).json(err)
 }
 });
 
 // get one product
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
-    const ans = Product.findByPk(req.params.id, { include: [{ model: Category}, { model: Tag}]})
+    const ans = await Product.findByPk(req.params.id, { include: [{ model: Category }, { model: Tag }]})
     if (!ans) {
       res.status(404).json({ message: "No product by that ID exsists."})
     }
@@ -109,11 +111,13 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
   try{
-    const ans = Product.destroy({ where: { id: req.params.id }})
-    if (!ans) {
-      res.status(404).json({ message: "No product with the following ID was found, no deletion occured."})
-    }
-    res.status(200).json(ans)
+    Product.destroy({ where: { id: req.params.id }}).then((proDel) => {
+      if (!proDel) {
+        res.status(404).json({ message: "No product with the following ID was found, no deletion occured."})
+      }
+      res.status(200).json(proDel)
+      res.json(proDel)
+    })
   } catch (err) {
     res.status(500).json(err)
   }
